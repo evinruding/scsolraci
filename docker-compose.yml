@@ -1,0 +1,39 @@
+version: '3'
+services:
+  solr:
+    image: solr:8.1.1
+    environment:
+      - SOLR_ENABLE_AUTHENTICATION=yes
+    ports:
+      - '8983:8983'
+    volumes:
+      - ./solr-sitecore-configsets:/opt/solr/server/solr/configsets
+      - ./solr-sitecore-data:/var/solr/data
+    entrypoint:
+      - bash
+      - '-c'
+      - 'curl https://cdn.getfishtank.ca/solr/sitecore-solr-8.1.1-configsets.zip -o /opt/solr/server/solr/configsets/configsets.zip && 
+        unzip -o /opt/solr/server/solr/configsets/configsets.zip -d /opt/solr/server/solr/configsets && 
+        wget -nc https://cdn.getfishtank.ca/solr/security.json -O /var/solr/data/security.json || true && 
+        precreate-core sitecore_core_index /opt/solr/server/solr/configsets/sitecore &&
+        precreate-core sitecore_master_index /opt/solr/server/solr/configsets/sitecore &&
+        precreate-core sitecore_web_index /opt/solr/server/solr/configsets/sitecore &&
+        precreate-core sitecore_marketingdefinitions_master /opt/solr/server/solr/configsets/sitecore &&
+        precreate-core sitecore_marketingdefinitions_web /opt/solr/server/solr/configsets/sitecore &&
+        precreate-core sitecore_marketing_asset_index_master /opt/solr/server/solr/configsets/sitecore &&
+        precreate-core sitecore_marketing_asset_index_web /opt/solr/server/solr/configsets/sitecore &&
+        precreate-core Sitecore-sitecore_testing_index /opt/solr/server/solr/configsets/sitecore &&
+        precreate-core Sitecore-sitecore_suggested_test_index /opt/solr/server/solr/configsets/sitecore &&
+        precreate-core sitecore_personalization_index /opt/solr/server/solr/configsets/sitecore &&
+        precreate-core sitecore_fxm_master_index /opt/solr/server/solr/configsets/sitecore &&
+        precreate-core sitecore_fxm_web_index /opt/solr/server/solr/configsets/sitecore &&
+        precreate-core xdb /opt/solr/server/solr/configsets/xconnect &&
+        precreate-core xdb_rebuild /opt/solr/server/solr/configsets/xconnect &&
+        solr-foreground'
+volumes:
+  data:
+    driver: local
+  solr-sitecore-configsets:
+    driver: local
+  solr-sitecore-data:
+    driver: local

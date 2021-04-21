@@ -8,8 +8,11 @@ Azure Storage Explorer
 Steps:
 
 1 In your azure RG create a storage account and connect to it with Azure storage explorer
+
 2 in the storage account create 2 fileshares, in my example I use solr-sitecore-configsets and solr-sitecore-data
+
 3 copy the contents of the folder solr-sitecore-configsets and solr-sitecore-data (both in this repo) into each respective azure fileshare
+
 4 change the params in ACI-solr-yamldeploy.yml to suit your environment, make sure to specify a unique dns name label
 
 Example files on how one can set up an azure Container Instance to run SOLR with file persistence

@@ -15,7 +15,13 @@ Steps:
 
 4 change the params in ACI-solr-yamldeploy.yml to suit your environment, make sure to specify a unique dns name label
 
-Example files on how one can set up an azure Container Instance to run SOLR with file persistence
+5 Fire up the script in powershell like this:
+
+Set-AzContext -Subscription "insert-your-sub-id-here"
+
+az container create --resource-group (insert your RG name here) --file ACI-solr-yamldeploy.yml
+
+
 
 To Do:
 Integrate SSL

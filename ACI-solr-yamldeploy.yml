@@ -1,0 +1,40 @@
+apiVersion: '2019-12-01'
+location: eastus2
+name: solracitest
+properties:
+  containers:
+  - name: solracitest
+    properties:
+      environmentVariables: []
+      image: colinsitecore/scsolraci:solr811
+      ports:
+      - port: 8983
+      resources:
+        requests:
+          cpu: 1.0
+          memoryInGB: 1.5
+      volumeMounts:
+      - mountPath: /opt/solr/server/solr/configsets/
+        name: solr-sitecore-configsets
+      - mountPath: /var/solr/data/
+        name: solr-sitecore-data
+  osType: Linux
+  restartPolicy: Always
+  ipAddress:
+    type: Public
+    ports:
+      - port: 8983
+    dnsNameLabel: solr-aci-demo
+  volumes:
+  - name: solr-sitecore-configsets
+    azureFile:
+      sharename: solr-sitecore-configsets
+      storageAccountName: (your storage account name here)
+      storageAccountKey: (insert key here)
+  - name: solr-sitecore-data
+    azureFile:
+      sharename: solr-sitecore-data
+      storageAccountName: (your storage account name here)
+      storageAccountKey: (insert key here)
+tags: {}
+type: Microsoft.ContainerInstance/containerGroups

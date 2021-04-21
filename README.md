@@ -1,4 +1,4 @@
-# scsolraci
+# Solr In Azure Container Instance for Sitecore
 How to run Solr in an azure container instance with file persistence
 
 Prereqs:

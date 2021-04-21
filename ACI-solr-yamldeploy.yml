@@ -6,7 +6,7 @@ properties:
   - name: solracitest
     properties:
       environmentVariables: []
-      image: colinsitecore/scsolraci:solr811
+      image: solr:8.8.2
       ports:
       - port: 8983
       resources:
